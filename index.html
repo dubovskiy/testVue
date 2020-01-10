@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        .center{
+            text-align: center;
+        }
+
+        .popup{
+            position: absolute;
+            top: 30px;
+            left: 100%;
+            white-space: nowrap;
+        }
+
+        .popup > div{
+            padding: 3px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content col-sm-6 container center">
+        <h3 class="justify-content-center">List of users</h3>
+        <div v-if="!mainContent.length">
+            <p>
+                Hello, click button to load content.
+            </p>
+            <button type="button" class="btn btn-primary" @click="loadData()">Load data</button>
+        </div>
+        <div v-else style="position: relative">
+            <div v-for="month, index in mainContent" v-bind:style="{backgroundColor: getColor(month.users)}" @mouseover="showUsers(month.users, index)">
+                {{ month.name }}
+            </div>
+            <div class="popup" v-if="showed.length" v-bind:style="{top: shift*24 + 'px'}">
+                <div  v-for="user in showed">
+                    {{ user }}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
